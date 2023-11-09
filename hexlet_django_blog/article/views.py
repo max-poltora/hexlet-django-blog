@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic.base import TemplateView
+from .models import Article
 
 '''
 def index(request):
@@ -18,6 +19,12 @@ class IndexView(TemplateView):
         context['app_name'] = 'hexlet-django-blog'
         
         return context
+    
+    def get(self, request, *args, **kwargs):
+        articles = Article.objects.all()
+        return render(request, 'article/index.html', context = {
+                        'articles': articles,
+                        })
     
 def index(request, tags, article_id):
     return render(request, 'article/article.html', context = {
