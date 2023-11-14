@@ -8,11 +8,10 @@
     </div>
 {% endif %}
 
-<form action="{% url 'article_update' article_id %}" method="post">
+<form action="{% url 'article_form' %}" method="post">
     {% csrf_token %}
     <table border="1">
         {{ form }}
     </table>
     <input type="submit" value="Save">
 </form>
-

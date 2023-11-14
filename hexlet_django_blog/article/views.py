@@ -46,7 +46,7 @@ class ArticleFormView(View):
     
     def get(self, request, *args, **kwargs):
         form = ArticleForm()
-        return render(request, 'article/comment.html', context = {
+        return render(request, 'article/create.html', context = {
                 'form': form,
             })
     
@@ -55,7 +55,7 @@ class ArticleFormView(View):
         if form.is_valid():
             form.save()
             return redirect('articles')
-        return render(request, 'article/comment.html', context = {
+        return render(request, 'article/create.html', context = {
                 'form': form,
             })
 
@@ -81,3 +81,12 @@ class ArticleFormEditView(View):
                 'form': form,
                 'article_id': article_id,
             })
+    
+class ArticleDeleteView(View):
+    
+    def post(self, request, *args, **kwargs):
+        article_id = kwargs.get('id')
+        article = Article.objects.get(id = article_id)
+        if article:
+            article.delete()
+        return redirect('articles')
